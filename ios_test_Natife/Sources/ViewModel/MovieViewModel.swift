@@ -26,6 +26,7 @@ class MovieViewModel {
         API.loadMovies(1) { (movies) in
             DispatchQueue.main.async {
                 self.movies = movies
+                print(movies)
                // self.movies.append(contentsOf: movies)
                 completionHandler()
             }
