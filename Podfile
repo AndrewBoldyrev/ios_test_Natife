@@ -6,5 +6,6 @@ target 'ios_test_Natife' do
   use_frameworks!
 
   pod 'Alamofire'
+  pod 'Kingfisher', '~> 7.0'
 
 end
