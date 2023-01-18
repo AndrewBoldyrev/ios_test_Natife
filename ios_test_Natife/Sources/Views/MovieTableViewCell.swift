@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class MovieTableViewCell: UITableViewCell {
     
@@ -24,8 +25,9 @@ class MovieTableViewCell: UITableViewCell {
     func configure(_ item : Movie){
         movieTitleLabel.text = item.title
         movieRatingLabel.text = "\(item.rating)"
-//        let url = URL(image: item.posterPath)
-//        movieImg.kf.setImage(with: url)
+        let url = URL(image: item.backdrop)
+        moviePosterImage.kf.setImage(with: url)
+        moviePosterImage.contentMode = .scaleToFill
         movieYearLabel.text = item.releaseDate
         
     }

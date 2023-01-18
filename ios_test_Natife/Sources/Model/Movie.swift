@@ -27,7 +27,4 @@ struct Movie: Codable {
              rating = "vote_average",
              overview
     }
-    
-    
-    
 }

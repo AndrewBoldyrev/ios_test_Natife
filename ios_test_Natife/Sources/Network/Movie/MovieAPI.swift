@@ -49,9 +49,4 @@ extension MovieAPI: EndPointType {
       urlComponents?.queryItems?.append(contentsOf: queryItems)
       return urlComponents?.url
     }
-    
-//    var url: URL? {
-//        var str = URL(string: "")
-//        return str
-//    }
 }

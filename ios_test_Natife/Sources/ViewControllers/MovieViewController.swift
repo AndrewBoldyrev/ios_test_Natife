@@ -8,21 +8,23 @@
 import UIKit
 
 class MovieViewController: UIViewController {
-
+    
     var movieViewModel = MovieViewModel.shared
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         movieViewModel.fetchMovies {
             self.tableView.reloadData()
         }
+        movieViewModel.currentPage = movieViewModel.incrementCurrentPage()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -30,7 +32,6 @@ class MovieViewController: UIViewController {
             movieViewModel.updateMovieIndex(indexPath.row)
         }
     }
-
 }
 
 extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
@@ -42,16 +43,24 @@ extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as? MovieTableViewCell else { return UITableViewCell() }
         cell.configure(movieViewModel.movies[indexPath.row])
         
-        
-        
-     //   cell.configure(movieViewModel.movies[indexPath.row]) //passing data to the method.
         return cell
     }
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.estimatedRowHeight
     }
-    
-    
 }
 
-
+extension MovieViewController : UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let offsetY = scrollView.contentOffset.y
+        
+        if offsetY > (tableView.contentSize.height - 100 - scrollView.frame.size.height){
+            movieViewModel.currentPage = movieViewModel.incrementCurrentPage()
+            movieViewModel.fetchMovies {
+                self.tableView.reloadData()
+            }
+            print(movieViewModel.currentPage)
+        }
+    }
+}

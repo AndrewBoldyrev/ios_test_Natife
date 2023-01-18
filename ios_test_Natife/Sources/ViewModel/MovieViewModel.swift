@@ -13,6 +13,7 @@ class MovieViewModel {
     
     var movies: [Movie]
     
+    var currentPage : Int = 0
     var selectedMovieIndex: Int = 0
     var genres: [Genres]
     
@@ -21,12 +22,18 @@ class MovieViewModel {
         self.genres = [Genres]()
     }
     
+    func incrementCurrentPage() -> Int {
+        var number = currentPage
+        number += 1
+        return number
+    }
+    
     func fetchMovies(completionHandler: @escaping () -> Void) {
       
-        API.loadMovies(1) { (movies) in
+        API.loadMovies(currentPage) { (movies) in
             DispatchQueue.main.async {
-                self.movies = movies
-                print(movies)
+                self.movies += movies
+              //  print(movies)
                // self.movies.append(contentsOf: movies)
                 completionHandler()
             }
