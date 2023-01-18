@@ -26,9 +26,10 @@ class API {
         urlComponents.queryItems?.append(pageQuery)
         
         let requestURL = urlComponents.url!
+        
         let dataTask = session.dataTask(with: requestURL) { data, response, error in
             let successRange = 200..<300
-            
+
             guard error == nil,
                   let statusCode = (response as? HTTPURLResponse)?.statusCode,
                   successRange.contains(statusCode) else {
@@ -56,7 +57,7 @@ class API {
             print("##MovieLoad decodingError: \(error.localizedDescription)")
             return []
         }
-        
+
     }
     
     static func loadMovieDetail(_ movieId: Int, completion: @escaping ([Genres]) -> Void) {

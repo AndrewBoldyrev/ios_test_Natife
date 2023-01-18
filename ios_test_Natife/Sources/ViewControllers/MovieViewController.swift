@@ -10,13 +10,19 @@ import UIKit
 class MovieViewController: UIViewController {
     
     var movieViewModel = MovieViewModel.shared
+    var sort = SortMoviesMenu()
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
+    
+    func setupUI() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", image: nil, primaryAction: nil, menu: sort.sortMovies)
         
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
