@@ -16,10 +16,12 @@ class MovieViewModel {
     var currentPage : Int = 0
     var selectedMovieIndex: Int = 0
     var genres: [Genres]
+    var countries : [Coutries]
     
     init() {
         self.movies = [Movie]()
         self.genres = [Genres]()
+        self.countries = [Coutries]()
     }
     
     func incrementCurrentPage() -> Int {
@@ -28,26 +30,35 @@ class MovieViewModel {
         return number
     }
     
+    
+    
     func fetchMovies(completionHandler: @escaping () -> Void) {
-      
         API.loadMovies(currentPage) { (movies) in
             DispatchQueue.main.async {
                 self.movies += movies
-              //  print(movies)
-               // self.movies.append(contentsOf: movies)
                 completionHandler()
             }
         }
     }
     
-    func fetchMovieDetail(completionHandler: @escaping () -> Void) {
+    func fetchMovieGenres(completionHandler: @escaping () -> Void) {
        
-        API.loadMovieDetail(movies[selectedMovieIndex].id) { genre in
+        API.loadMovieGenres(movies[selectedMovieIndex].id) { genre in
+            DispatchQueue.main.async {
+                self.genres = genre
+                completionHandler()
+            }
+        }
+    }
+    
+    func fetchMovieCountry(completionHandler: @escaping () -> Void) {
+       
+        API.loadMovieCountries(movies[selectedMovieIndex].id) { country in
             DispatchQueue.main.async {
 //                self.movie = movies
                 //self.genres.append(contentsOf: genre)
-                self.genres = genre
-               // print(genre.first?.name)
+                self.countries = country
+                print(String(country.count ))
                 completionHandler()
             }
         }

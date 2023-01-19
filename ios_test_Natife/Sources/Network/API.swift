@@ -60,7 +60,7 @@ class API {
 
     }
     
-    static func loadMovieDetail(_ movieId: Int, completion: @escaping ([Genres]) -> Void) {
+    static func loadMovieGenres(_ movieId: Int, completion: @escaping ([Genres]) -> Void) {
         let session = URLSession(configuration: .default)
         var urlComponents = URLComponents(string: "https://api.themoviedb.org/3/movie/\(movieId)?")!
         let apiQuery = URLQueryItem(name: "api_key", value: apiKey)
@@ -82,7 +82,7 @@ class API {
                  completion([])
                 return
             }
-            let movieDetail = API.decodeMovieDetail(resultData)
+            let movieDetail = API.decodeMovieGenres(resultData)
             print("##MovieDetail success!")
             completion(movieDetail)
         }
@@ -90,12 +90,56 @@ class API {
     }
     
     
-    static func decodeMovieDetail(_ data: Data) -> [Genres] {
+    static func decodeMovieGenres(_ data: Data) -> [Genres] {
         do{
             let decoder = JSONDecoder()
             let response = try decoder.decode(MovieDetailResults.self, from: data)
             let genres = response.genres
             return genres
+        } catch let error {
+            print("##MovieDetail decodingError: \(error.localizedDescription)")
+            return []
+        }
+        
+    }
+    
+    
+    static func loadMovieCountries(_ movieId: Int, completion: @escaping ([Coutries]) -> Void) {
+        let session = URLSession(configuration: .default)
+        var urlComponents = URLComponents(string: "https://api.themoviedb.org/3/movie/\(movieId)?")!
+        let apiQuery = URLQueryItem(name: "api_key", value: apiKey)
+        let languageQuery = URLQueryItem(name: "language", value: "en-US")
+        urlComponents.queryItems?.append(apiQuery)
+        urlComponents.queryItems?.append(languageQuery)
+        
+        let requestURL = urlComponents.url!
+        let dataTask = session.dataTask(with: requestURL) { data, response, error in
+            let successRange = 200..<300
+            
+            guard error == nil,
+                  let statusCode = (response as? HTTPURLResponse)?.statusCode,
+                  successRange.contains(statusCode) else {
+                completion([])
+                return
+            }
+            guard let resultData = data else {
+                 completion([])
+                return
+            }
+            let movieDetail = API.decodeMovieCountries(resultData)
+            print("##MovieDetail success!")
+            completion(movieDetail)
+        }
+        dataTask.resume()
+    }
+    
+    
+    static func decodeMovieCountries(_ data: Data) -> [Coutries] {
+        do{
+            let decoder = JSONDecoder()
+            let response = try decoder.decode(MovieDetailResults.self, from: data)
+            let countries = response.productionCountries
+            return countries
         } catch let error {
             print("##MovieDetail decodingError: \(error.localizedDescription)")
             return []

@@ -9,7 +9,7 @@ import Foundation
 
 extension URL {
     init?(image path: String) {
-        let baseUrl = "https://image.tmdb.org/t/p/w300/"
+        let baseUrl = "https://image.tmdb.org/t/p/w400/"
         self.init(string: "\(baseUrl)\(path)")
     }
 }
