@@ -13,6 +13,7 @@ import AVFoundation
 class DetailViewController : UIViewController {
     
     var movieViewModel = MovieViewModel.shared
+    var selectedImage: UIImage?
     
     @IBOutlet weak var genresCollectionView: UICollectionView!
     @IBOutlet weak var coutriesCollectionView: UICollectionView!
@@ -36,6 +37,15 @@ class DetailViewController : UIViewController {
         
         present(vc, animated: false, completion: nil)
         
+    }
+    
+    @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
+        
+        let vc = storyboard?.instantiateViewController(identifier: "ImageViewController") as! ImageViewController
+        vc.selectedImage = movieImage.image
+        vc.modalPresentationStyle = .popover
+        
+        present(vc, animated: false, completion: nil)
     }
     
     func prepareNetwork(){

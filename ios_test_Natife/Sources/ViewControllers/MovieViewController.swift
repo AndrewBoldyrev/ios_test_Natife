@@ -58,6 +58,7 @@ extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension MovieViewController : UIScrollViewDelegate {
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let offsetY = scrollView.contentOffset.y

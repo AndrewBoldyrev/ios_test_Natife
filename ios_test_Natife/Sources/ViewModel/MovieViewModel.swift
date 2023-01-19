@@ -71,7 +71,7 @@ class MovieViewModel {
             video in
             DispatchQueue.main.async {
                 self.video = video
-                print(video.first?.key)
+              //  print(video.first?.key)
                 completionHandler()
             }
         }
