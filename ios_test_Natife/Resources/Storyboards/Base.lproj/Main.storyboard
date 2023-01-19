@@ -154,12 +154,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1UT-8S-KAH">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1UT-8S-KAH">
                                 <rect key="frame" x="16" y="91" width="358" height="412"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="358" id="Hax-fL-tkv"/>
                                     <constraint firstAttribute="height" constant="412" id="meI-Qi-ohR"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="gXR-ec-4E3" appends="YES" id="Lxl-3Y-eFA"/>
+                                </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQS-PS-Vs3">
                                 <rect key="frame" x="34" y="403" width="49" height="21"/>
@@ -279,6 +283,16 @@
                                     <outlet property="delegate" destination="PMe-cW-KDz" id="6fl-Po-rqt"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofJ-Nt-ILu">
+                                <rect key="frame" x="299" y="468" width="75" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.1857388616" blue="0.57339501380000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="didTapPlayTrailerButton:" destination="PMe-cW-KDz" eventType="touchUpInside" id="n74-Ly-ShD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="npG-Gp-Qol"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -301,9 +315,15 @@
                         <outlet property="movieImage" destination="1UT-8S-KAH" id="rW4-8h-iOn"/>
                         <outlet property="movieRatingLabel" destination="PQS-PS-Vs3" id="OXW-Kn-PYY"/>
                         <outlet property="movieTitleLabel" destination="JVN-7U-0u7" id="sdd-bU-xeH"/>
+                        <outlet property="playTrailerButton" destination="ofJ-Nt-ILu" id="BBT-gB-EWD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7tf-Tr-N00" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="gXR-ec-4E3">
+                    <connections>
+                        <action selector="imageTapped:" destination="PMe-cW-KDz" id="O8g-AH-a7f"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1256.9230769230769" y="-41.232227488151658"/>
         </scene>

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Kingfisher
+import AVFoundation
 
 class DetailViewController : UIViewController {
     
@@ -19,13 +20,23 @@ class DetailViewController : UIViewController {
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var movieRatingLabel: UILabel!
     @IBOutlet weak var movieDescriptionLabel: UILabel!
+    @IBOutlet weak var playTrailerButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       setupUI()
+        setupUI()
         prepareNetwork()
     }
     
+    @IBAction func didTapPlayTrailerButton(_ sender: Any) {
+        
+        let sb = UIStoryboard(name: "VideoPlayer", bundle: nil)
+        let vc = sb.instantiateViewController(identifier: "PlayerViewController") as! PlayerViewController
+        vc.modalPresentationStyle = .fullScreen
+        
+        present(vc, animated: false, completion: nil)
+        
+    }
     
     func prepareNetwork(){
         movieViewModel.genres = []
@@ -36,9 +47,15 @@ class DetailViewController : UIViewController {
         movieViewModel.fetchMovieCountry {
             self.coutriesCollectionView.reloadData()
         }
+        movieViewModel.fetchVideo {}
     }
         
         func setupUI() {
+            
+            if movieViewModel.video.isEmpty {
+                playTrailerButton.isHidden = true
+            }
+            
             genresCollectionView.showsHorizontalScrollIndicator = false
             if let layout = genresCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                 layout.scrollDirection = .horizontal

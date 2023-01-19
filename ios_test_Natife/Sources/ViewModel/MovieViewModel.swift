@@ -16,12 +16,14 @@ class MovieViewModel {
     var currentPage : Int = 0
     var selectedMovieIndex: Int = 0
     var genres: [Genres]
+    var video : [VideoKey]
     var countries : [Coutries]
     
     init() {
         self.movies = [Movie]()
         self.genres = [Genres]()
         self.countries = [Coutries]()
+        self.video = [VideoKey]()
     }
     
     func incrementCurrentPage() -> Int {
@@ -59,6 +61,17 @@ class MovieViewModel {
                 //self.genres.append(contentsOf: genre)
                 self.countries = country
                 print(String(country.count ))
+                completionHandler()
+            }
+        }
+    }
+    
+    func fetchVideo(completionHandler: @escaping () -> Void) {
+        API.loadVideo(movies[selectedMovieIndex].id) {
+            video in
+            DispatchQueue.main.async {
+                self.video = video
+                print(video.first?.key)
                 completionHandler()
             }
         }

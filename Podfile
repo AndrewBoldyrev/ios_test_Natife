@@ -7,5 +7,6 @@ target 'ios_test_Natife' do
 
   pod 'Alamofire'
   pod 'Kingfisher', '~> 7.0'
+  pod "youtube-ios-player-helper", "~> 1.0.4"
 
 end

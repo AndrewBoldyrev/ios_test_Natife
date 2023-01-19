@@ -147,4 +147,47 @@ class API {
         
     }
     
+    static func loadVideo(_ movieId: Int, completion: @escaping ([VideoKey]) -> Void) {
+        let session = URLSession(configuration: .default)
+        var urlComponents = URLComponents(string: "https://api.themoviedb.org/3/movie/\(movieId)/videos?")!
+        let apiQuery = URLQueryItem(name: "api_key", value: apiKey)
+        let languageQuery = URLQueryItem(name: "language", value: "en-US")
+        urlComponents.queryItems?.append(apiQuery)
+        urlComponents.queryItems?.append(languageQuery)
+        
+        let requestURL = urlComponents.url!
+        let dataTask = session.dataTask(with: requestURL) { data, response, error in
+            let successRange = 200..<300
+            
+            guard error == nil,
+                  let statusCode = (response as? HTTPURLResponse)?.statusCode,
+                  successRange.contains(statusCode) else {
+                return
+            }
+            guard let resultData = data else {
+                return
+            }
+//            let str = String(decoding: resultData, as: UTF8.self)
+//            print("#######\(str.description)")
+            let movieVideo = API.decodeVideo(resultData)
+            print("##LoadVideo success!")
+            completion(movieVideo)
+        }
+        dataTask.resume()
+    }
+    
+    static func decodeVideo (_ data: Data) -> [VideoKey] {
+        do{
+            let decoder = JSONDecoder()
+            let response = try decoder.decode(VideoResults.self, from: data)
+            let videoKey = response.results
+            
+            return videoKey
+        } catch let error {
+            print("##LoadVideo decodingError: \(error.localizedDescription)")
+            return []
+        }
+    }
+
+    
 }
