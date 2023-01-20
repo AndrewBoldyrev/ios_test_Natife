@@ -35,8 +35,8 @@ class MovieViewModel {
     
     
     
-    func fetchMovies(completionHandler: @escaping () -> Void) {
-        MovieService.loadMovies(currentPage) { (movies) in
+    func fetchMovies(currentPage: Int, completionHandler: @escaping () -> Void) {
+        MovieService.loadMovies(page: currentPage) { (movies) in
             DispatchQueue.main.async {
                 self.movies += movies
                 completionHandler()
@@ -46,9 +46,10 @@ class MovieViewModel {
     
     func fetchMovieGenres(completionHandler: @escaping () -> Void) {
        
-        MovieService.loadMovieGenres(movies[selectedMovieIndex].id) { genre in
+        MovieService.loadMovieGenres(movieId: movies[selectedMovieIndex].id) { genre in
             DispatchQueue.main.async {
                 self.genres = genre
+                //self.genres.append(contentsOf: genre)
                 completionHandler()
             }
         }
@@ -56,10 +57,9 @@ class MovieViewModel {
     
     func fetchMovieCountry(completionHandler: @escaping () -> Void) {
        
-        MovieService.loadMovieCountries(movies[selectedMovieIndex].id) { country in
+        MovieService.loadMovieCountries(movieId: movies[selectedMovieIndex].id) { country in
             DispatchQueue.main.async {
 //                self.movie = movies
-                //self.genres.append(contentsOf: genre)
                 self.countries = country
                 print(String(country.count ))
                 completionHandler()
@@ -68,7 +68,7 @@ class MovieViewModel {
     }
     
     func fetchVideo(completionHandler: @escaping () -> Void) {
-        MovieService.loadVideo(movies[selectedMovieIndex].id) {
+        MovieService.loadVideo(movieId: movies[selectedMovieIndex].id) {
             video in
             DispatchQueue.main.async {
                 self.video = video
@@ -79,8 +79,7 @@ class MovieViewModel {
     }
     
     func fetchSearchMovies(movieName: String, completionHandler: @escaping () -> Void) {
-        MovieService.loadSearchMovie(movieName) { (movies) in
-           // ActivityIndicator.shared.show()
+        MovieService.loadSearchMovie(movieName: movieName) { (movies) in
             DispatchQueue.main.async {
                 self.movies = movies
                 completionHandler()
@@ -89,8 +88,7 @@ class MovieViewModel {
     }
     
     func fetchSortedMovies(sortType: String, completionHandler: @escaping () -> Void) {
-        API.loadSortMovies(sortType) { (movies) in
-           // ActivityIndicator.shared.show()
+        MovieService.loadSortMovies(sortType: sortType) { (movies) in
             DispatchQueue.main.async {
                 self.movies = movies
                 print(movies)

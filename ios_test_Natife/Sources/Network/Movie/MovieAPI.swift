@@ -13,6 +13,7 @@ enum MovieAPI {
     case video(movieId: Int)
     case movieCountries(movieId: Int)
     case searchMovie(movieName: String)
+    case sortMovies(sortType: String)
 }
 
 extension MovieAPI: EndPointType {
@@ -35,6 +36,8 @@ extension MovieAPI: EndPointType {
             return "/3/movie/\(movieId)?"
         case .searchMovie:
             return "/3/search/movie?"
+        case .sortMovies:
+            return "/3/movie/popular?"
         }
     }
     
@@ -50,7 +53,9 @@ extension MovieAPI: EndPointType {
       case .searchMovie(let movieName):
           queryItems.append(URLQueryItem(name: "query", value: String(movieName)))
           return queryItems
-      
+      case .sortMovies(let sortType):
+          queryItems.append(URLQueryItem(name: "sort_by", value: String(sortType)))
+          return queryItems
       default:
         return queryItems
       }

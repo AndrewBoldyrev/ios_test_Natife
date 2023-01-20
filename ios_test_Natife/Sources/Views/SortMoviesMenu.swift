@@ -14,17 +14,10 @@ class SortMoviesMenu : UIMenu {
     var movieViewModel = MovieViewModel.shared
     var movieVC = MovieViewController()
     
-    func getGGG() {
-        self.movieViewModel.fetchSortedMovies(sortType: "release_date.desc") {
-            self.movieVC.tableView.reloadData()
-        }
-    }
     
     var menuItems: [UIAction] {
         return [
-            UIAction(title: "Sort by relese date", image: nil, handler: { _  in
-                print(SortType.releaseDate.sort)
-                self.getGGG()
+            UIAction(title: "Sort by relese date", image: nil, handler: { action  in
             }),
             UIAction(title: "Sort by revenue", image: nil, handler: { (_) in
             }),

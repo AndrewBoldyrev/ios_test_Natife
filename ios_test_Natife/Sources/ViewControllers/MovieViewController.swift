@@ -22,7 +22,7 @@ class MovieViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        movieViewModel.fetchMovies {
+        movieViewModel.fetchMovies(currentPage: movieViewModel.currentPage) {
             self.tableView.reloadData()
         }
         movieViewModel.currentPage = movieViewModel.incrementCurrentPage()
@@ -42,7 +42,7 @@ class MovieViewController: UIViewController {
                 self.tableView.reloadData()
             }
             if text.isEmpty == true {
-                movieViewModel.fetchMovies {
+                movieViewModel.fetchMovies(currentPage: movieViewModel.currentPage) {
                     self.tableView.reloadData()
                 }
             }
@@ -70,6 +70,7 @@ class MovieViewController: UIViewController {
 
 }
 
+
 extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movieViewModel.movies.count
@@ -94,7 +95,7 @@ extension MovieViewController : UIScrollViewDelegate {
         
         if offsetY > (tableView.contentSize.height - 80 - scrollView.frame.size.height){
             movieViewModel.currentPage = movieViewModel.incrementCurrentPage()
-            movieViewModel.fetchMovies {
+            movieViewModel.fetchMovies(currentPage: movieViewModel.currentPage) {
                 self.tableView.reloadData()
             }
         }
