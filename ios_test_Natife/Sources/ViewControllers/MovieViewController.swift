@@ -11,18 +11,13 @@ class MovieViewController: UIViewController {
     
     var movieViewModel = MovieViewModel.shared
     var sort = SortMoviesMenu()
+    var activity = ActivityIndicator()
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-    }
-    
-    func setupUI() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", image: nil, primaryAction: nil, menu: sort.sortMovies)
-        
-        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,6 +33,41 @@ class MovieViewController: UIViewController {
             movieViewModel.updateMovieIndex(indexPath.row)
         }
     }
+    
+    @IBAction func didTextSearchChange(_ sender: UITextField) {
+        
+        if let text = sender.text {
+          //  self.movieViewModel.movies.removeAll()
+            movieViewModel.fetchSearchMovies(movieName: text) {
+                self.tableView.reloadData()
+            }
+            if text.isEmpty == true {
+                movieViewModel.fetchMovies {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
+    func setupUI() {
+        
+        searchTextField.addTarget(self, action: #selector(didTextSearchChange(_:)), for: .editingChanged)
+        
+        tableView.showsVerticalScrollIndicator = false
+        
+        searchTextField.leftView = UIView(frame: CGRect(x: 10, y: 0, width: 30, height: 40))
+        searchTextField.leftViewMode = .unlessEditing
+        let leftViewItSelf = UIImageView(frame: CGRect(x: 10, y: 10, width: 20, height: 20))
+        leftViewItSelf.image = UIImage(named: "search")
+        
+        searchTextField.leftView?.addSubview(leftViewItSelf)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", image: nil, primaryAction: nil, menu: sort.sortMovies)
+        
+        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+    }
+
 }
 
 extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
@@ -47,7 +77,6 @@ extension MovieViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as? MovieTableViewCell else { return UITableViewCell() }
-    
         cell.configure(movieViewModel.movies[indexPath.row])
         
         return cell
@@ -63,12 +92,11 @@ extension MovieViewController : UIScrollViewDelegate {
         
         let offsetY = scrollView.contentOffset.y
         
-        if offsetY > (tableView.contentSize.height - 100 - scrollView.frame.size.height){
+        if offsetY > (tableView.contentSize.height - 80 - scrollView.frame.size.height){
             movieViewModel.currentPage = movieViewModel.incrementCurrentPage()
             movieViewModel.fetchMovies {
                 self.tableView.reloadData()
             }
-            print(movieViewModel.currentPage)
         }
     }
 }

@@ -16,6 +16,9 @@
 		0997AFA62979A7A80019EB3A /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0997AFA52979A7A80019EB3A /* PlayerView.swift */; };
 		0997AFA82979A9090019EB3A /* VideoResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0997AFA72979A9090019EB3A /* VideoResult.swift */; };
 		0997AFAC2979CD920019EB3A /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0997AFAB2979CD920019EB3A /* ImageViewController.swift */; };
+		0997AFAE297A03540019EB3A /* SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0997AFAD297A03540019EB3A /* SortType.swift */; };
+		0997AFB0297A0D1E0019EB3A /* Networkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0997AFAF297A0D1E0019EB3A /* Networkable.swift */; };
+		0997AFB2297A0D390019EB3A /* MovieServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0997AFB1297A0D390019EB3A /* MovieServise.swift */; };
 		09DA78B7297583EE0046690F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA78B6297583EE0046690F /* AppDelegate.swift */; };
 		09DA78B9297583EE0046690F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA78B8297583EE0046690F /* SceneDelegate.swift */; };
 		09DA78BB297583EE0046690F /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA78BA297583EE0046690F /* MovieViewController.swift */; };
@@ -46,6 +49,9 @@
 		0997AFA52979A7A80019EB3A /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		0997AFA72979A9090019EB3A /* VideoResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoResult.swift; sourceTree = "<group>"; };
 		0997AFAB2979CD920019EB3A /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		0997AFAD297A03540019EB3A /* SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortType.swift; sourceTree = "<group>"; };
+		0997AFAF297A0D1E0019EB3A /* Networkable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networkable.swift; sourceTree = "<group>"; };
+		0997AFB1297A0D390019EB3A /* MovieServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieServise.swift; sourceTree = "<group>"; };
 		09DA78B3297583EE0046690F /* ios_test_Natife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_test_Natife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09DA78B6297583EE0046690F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09DA78B8297583EE0046690F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -217,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				09DA78D82976AAEB0046690F /* MovieAPI.swift */,
+				0997AFB1297A0D390019EB3A /* MovieServise.swift */,
 			);
 			path = Movie;
 			sourceTree = "<group>";
@@ -225,6 +232,8 @@
 			isa = PBXGroup;
 			children = (
 				09DA78DB2976ABC10046690F /* EndPointType.swift */,
+				0997AFAD297A03540019EB3A /* SortType.swift */,
+				0997AFAF297A0D1E0019EB3A /* Networkable.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -382,8 +391,11 @@
 				09F7068C2976B96E0063BC71 /* MovieDetailResult.swift in Sources */,
 				0997AFA82979A9090019EB3A /* VideoResult.swift in Sources */,
 				0997AFA42979A7580019EB3A /* PlayerViewController.swift in Sources */,
+				0997AFAE297A03540019EB3A /* SortType.swift in Sources */,
 				09F706932976E7970063BC71 /* URL+Extension.swift in Sources */,
 				0997AF9C2979405E0019EB3A /* DetailViewController.swift in Sources */,
+				0997AFB2297A0D390019EB3A /* MovieServise.swift in Sources */,
+				0997AFB0297A0D1E0019EB3A /* Networkable.swift in Sources */,
 				09F7068A2976B9060063BC71 /* MovieViewModel.swift in Sources */,
 				09DA78DC2976ABC10046690F /* EndPointType.swift in Sources */,
 				09F70697297823EC0063BC71 /* UIView+Extension.swift in Sources */,

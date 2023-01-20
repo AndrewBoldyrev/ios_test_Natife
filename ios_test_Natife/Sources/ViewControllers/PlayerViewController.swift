@@ -21,7 +21,7 @@ class PlayerViewController : UIViewController, YTPlayerViewDelegate {
         super.viewDidLoad()
         self.playerView.delegate = self
         guard let key = MovieViewModel.shared.video.first?.key else { return }
-        print(key)
+       // print(key)
 
         playerView.load(withVideoId: key, playerVars: ["playsinline": "1"])
         

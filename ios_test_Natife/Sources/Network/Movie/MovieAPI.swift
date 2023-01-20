@@ -9,7 +9,10 @@ import Foundation
 
 enum MovieAPI {
     case movies(page: Int)
-    case movieDetail(movieId: Int)
+    case movieGenres(movieId: Int)
+    case video(movieId: Int)
+    case movieCountries(movieId: Int)
+    case searchMovie(movieName: String)
 }
 
 extension MovieAPI: EndPointType {
@@ -23,22 +26,31 @@ extension MovieAPI: EndPointType {
     var path: String {
         switch self {
         case .movies :
-            var str = "/3/movie/popular?"
-            return str
-        case .movieDetail(let movieId):
+            return "/3/movie/popular?"
+        case .movieGenres(let movieId):
             return "/3/movie/\(movieId)?"
+        case .video(movieId: let movieId):
+            return "/3/movie/\(movieId)/videos?"
+        case .movieCountries(movieId: let movieId):
+            return "/3/movie/\(movieId)?"
+        case .searchMovie:
+            return "/3/search/movie?"
         }
     }
     
     var queryItems: [URLQueryItem] {
       var queryItems = [
+        URLQueryItem(name: "language", value: "en-US"),
         URLQueryItem(name: "api_key", value: MovieAPI.apiKey),
-        URLQueryItem(name: "language", value: "en-US")
       ]
       switch self {
       case .movies(let page):
         queryItems.append(URLQueryItem(name: "page", value: String(page)))
         return queryItems
+      case .searchMovie(let movieName):
+          queryItems.append(URLQueryItem(name: "query", value: String(movieName)))
+          return queryItems
+      
       default:
         return queryItems
       }
