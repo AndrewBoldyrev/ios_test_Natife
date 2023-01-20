@@ -63,6 +63,8 @@ class MovieViewController: UIViewController {
         
         searchTextField.leftView?.addSubview(leftViewItSelf)
         
+        navigationItem.title = "Popular Movies"
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", image: nil, primaryAction: nil, menu: sort.sortMovies)
         
         self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -93,7 +95,7 @@ extension MovieViewController : UIScrollViewDelegate {
         
         let offsetY = scrollView.contentOffset.y
         
-        if offsetY > (tableView.contentSize.height - 80 - scrollView.frame.size.height){
+        if offsetY > (tableView.contentSize.height - 100 - scrollView.frame.size.height){
             movieViewModel.currentPage = movieViewModel.incrementCurrentPage()
             movieViewModel.fetchMovies(currentPage: movieViewModel.currentPage) {
                 self.tableView.reloadData()

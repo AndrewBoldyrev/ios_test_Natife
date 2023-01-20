@@ -23,11 +23,11 @@ struct Genres: Codable {
 }
 
 struct Coutries : Codable {
-   // let iso: String
+    let iso: String
     let name: String
     
-//    private enum CodingKeys: String, CodingKey {
-//        case iso = "iso_3166_1",
-//             name
-//    }
+    private enum CodingKeys: String, CodingKey {
+        case iso = "iso_3166_1",
+             name
+    }
 }

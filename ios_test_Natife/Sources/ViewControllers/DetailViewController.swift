@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import Kingfisher
-import AVFoundation
+//import AVFoundation
 
 class DetailViewController : UIViewController {
     
@@ -67,7 +67,11 @@ class DetailViewController : UIViewController {
             }
             
             genresCollectionView.showsHorizontalScrollIndicator = false
+            coutriesCollectionView.showsHorizontalScrollIndicator = false
             if let layout = genresCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.scrollDirection = .horizontal
+            }
+            if let layout = coutriesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                 layout.scrollDirection = .horizontal
             }
             self.navigationController?.navigationBar.topItem?.title = " "
@@ -76,11 +80,34 @@ class DetailViewController : UIViewController {
             self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
           //  print(movieViewModel.movies.count)
             movieTitleLabel.text = self.navigationItem.title
+            movieRatingLabel.text = String("Rating: \(movieViewModel.movies[movieViewModel.fetchMovieIndex()].rating)")
             movieDescriptionLabel.text = movieViewModel.movies[movieViewModel.fetchMovieIndex()].overview
             movieImage.contentMode = .scaleToFill
             let imagePath = movieViewModel.movies[movieViewModel.fetchMovieIndex()].posterPath
             let url = URL(image: imagePath)
             movieImage.kf.setImage(with: url)
+            
+            
+            movieTitleLabel.backgroundColor = UIColor.white.withAlphaComponent(0.7)
+            movieTitleLabel.sizeToFit()
+            movieTitleLabel.layer.masksToBounds = true
+            movieTitleLabel.layer.cornerRadius = 5
+            
+            movieRatingLabel.backgroundColor = UIColor.white.withAlphaComponent(0.7)
+            movieRatingLabel.sizeToFit()
+            movieRatingLabel.layer.masksToBounds = true
+            movieRatingLabel.layer.cornerRadius = 5
+            
+            playTrailerButton.clipsToBounds = true
+            playTrailerButton.layer.cornerRadius = 10
+            playTrailerButton.layer.borderColor = UIColor.white.cgColor
+            playTrailerButton.layer.borderWidth = 2.0
+            playTrailerButton.setTitleColor(.white, for: .normal)
+            
+            movieDescriptionLabel.textColor = .white
+            movieDescriptionLabel.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+            movieDescriptionLabel.layer.masksToBounds = true
+            movieDescriptionLabel.layer.cornerRadius = 5
             
         }
         
@@ -105,7 +132,7 @@ extension DetailViewController: UICollectionViewDataSource {
         } else {
             guard let countryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCell", for: indexPath) as? CountriesCollectionViewCell else { return UICollectionViewCell() }
             countryCell.countriesLabel.text = movieViewModel.countries[indexPath.row].name
-            //  countryCell.configure()
+              countryCell.configure()
             return countryCell
         }
     }
@@ -113,6 +140,11 @@ extension DetailViewController: UICollectionViewDataSource {
 
 extension DetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 90, height: 48)
+        if collectionView == self.genresCollectionView {
+             return CGSize(width: movieViewModel.genres[indexPath.item].name.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17)]).width + 25, height: 48)
+        } else {
+            return CGSize(width: movieViewModel.countries[indexPath.item].name.size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17)]).width + 25, height: 48)
+        }
     }
 }
+

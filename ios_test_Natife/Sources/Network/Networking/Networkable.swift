@@ -29,7 +29,6 @@ extension Networkable {
               //  completion(nil)
             }
         }
-
     }
     
     static func decode<T: Codable>(type: T.Type, data: Data) -> T? {

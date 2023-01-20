@@ -21,6 +21,7 @@ class ImageViewController: UIViewController {
     }
     
     func setupUI() {
+        view.backgroundColor = .black
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         

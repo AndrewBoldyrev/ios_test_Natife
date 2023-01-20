@@ -15,6 +15,7 @@ class GenresCollectionViewCell: UICollectionViewCell {
     
     func configure() {
       //  genresLabel.sizeToFit()
+        genresLabel.textColor = .white
         genresLabel.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         genresLabel.layer.masksToBounds = true
         genresLabel.layer.cornerRadius = 5
